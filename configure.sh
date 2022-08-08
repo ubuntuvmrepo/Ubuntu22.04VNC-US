@@ -4,6 +4,8 @@
 sudo apt update
 sudo apt install lxqt tightvncserver -y
 mkdir -p $HOME/.vnc
+echo $1
+echo $2
 vncpasswd -f <<< $1 > "$HOME/.vnc/passwd"
 
 #Start VNC/reset changes
