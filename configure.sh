@@ -2,7 +2,7 @@
 
 #Enable VNC
 sudo apt update
-sudo apt install lxqt tightvncserver -y
+sudo apt install tigervnc-standalone-server lxqt -y
 umask 0077
 mkdir -p "$HOME/.vnc"
 chmod go-rwx "$HOME/.vnc"
@@ -19,4 +19,4 @@ sudo apt install ngrok -y
 
 #configure ngrok and start it
 ngrok authtoken $2
-ngrok tcp 5900 &
+ngrok tcp 5901 &
