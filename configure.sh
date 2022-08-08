@@ -4,11 +4,11 @@
 sudo apt update
 sudo apt install lxqt tightvncserver -y
 mkdir -p $HOME/.vnc
-echo $1
-echo $2
+echo "Configure VNC password"
 vncpasswd -f <<< $1 > "$HOME/.vnc/passwd"
 
 #Start VNC/reset changes
+echo "Start VNC server"
 vncserver
 
 #install ngrok
