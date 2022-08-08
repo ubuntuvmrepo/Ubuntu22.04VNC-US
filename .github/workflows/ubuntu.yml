@@ -15,7 +15,9 @@ jobs:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
         VNC_PASSWORD: ${{ secrets.VNC_PASSWORD }}
         DDNS: ${{ secrets.DDNS }}
-      run: source configure.sh "$VNC_PASSWORD" "$NGROK_AUTH_TOKEN" "$DDNS"
+        CLOUDFLARED_CERT: ${{ secrets.CLOUDFLARED_CERT }}
+        CLOUDFLARED_CONFIG: ${{ secrets.CLOUDFLARED_CONFIG }}
+      run: source configure.sh "$VNC_PASSWORD" "$NGROK_AUTH_TOKEN" "$DDNS" "CLOUDFLARED_CERT" "CLOUDFLARED_CONFIG"
     - name: ngrok is now listening to VNC connections on...
       run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
     - name: Setup tmate session
