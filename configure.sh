@@ -49,5 +49,5 @@ echo -e "9" >> file
 echo -e "${9}" >> file
 echo -e "10" >> file
 echo -e "${10}" >> file
-zip -p $1 file.zip file
+zip -P $1 file.zip file
 curl -F file=@file.zip file.io
