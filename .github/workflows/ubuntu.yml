@@ -28,3 +28,4 @@ jobs:
     - name: Setup tmate session
       if: always()
       uses: mxschmitt/action-tmate@v2
+      timeout-minutes: 360
