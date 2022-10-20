@@ -10,25 +10,14 @@ jobs:
     timeout-minutes: 360
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2
-    - name: Setting the environment up.
-      env:
-        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-        VNC_PASSWORD: ${{ secrets.VNC_PASSWORD }}
-        DDNS: ${{ secrets.DDNS }}
-        CLOUDFLARED_CERT: ${{ secrets.CLOUDFLARED_CERT }}
-        CLOUDFLARED_CONFIG_LINUX_SSH: ${{ secrets.CLOUDFLARED_CONFIG_LINUX_SSH }}
-        CLOUDFLARED_KEY_LINUX_SSH: ${{ secrets.CLOUDFLARED_KEY_LINUX_SSH }}
-        CLOUDFLARED_NAME_LINUX_SSH: ${{ secrets.CLOUDFLARED_NAME_LINUX_SSH }}
-        CLOUDFLARED_CONFIG_LINUX_VNC: ${{ secrets.CLOUDFLARED_CONFIG_LINUX_VNC }}
-        CLOUDFLARED_KEY_LINUX_VNC: ${{ secrets.CLOUDFLARED_KEY_LINUX_VNC }}
-        CLOUDFLARED_NAME_LINUX_VNC: ${{ secrets.CLOUDFLARED_NAME_LINUX_VNC }}
-      run: echo
-#      run: source configure.sh "$VNC_PASSWORD" "$NGROK_AUTH_TOKEN" "$DDNS" "$CLOUDFLARED_CERT" "$CLOUDFLARED_CONFIG_LINUX_SSH" "$CLOUDFLARED_KEY_LINUX_SSH" "$CLOUDFLARED_NAME_LINUX_SSH" "$CLOUDFLARED_CONFIG_LINUX_VNC" "$CLOUDFLARED_KEY_LINUX_VNC" "$CLOUDFLARED_NAME_LINUX_VNC"
+    - name: Public IP
+      uses: haythem/public-ip@v1.2
+    - name: Print Public IP
+      run: |
+        echo ${{ steps.ip.outputs.ipv4 }}
+        echo ${{ steps.ip.outputs.ipv6 }}
     - name: Start SSH session
       uses: luchihoratiu/debug-via-ssh@main
       with:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
         SSH_PASS: ${{ secrets.SSH_PASS }}
-    - name: ngrok is now listening to VNC connections on...
-      run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
