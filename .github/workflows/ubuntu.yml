@@ -25,10 +25,10 @@ jobs:
         CLOUDFLARED_NAME_LINUX_VNC: ${{ secrets.CLOUDFLARED_NAME_LINUX_VNC }}
       run: echo
 #      run: source configure.sh "$VNC_PASSWORD" "$NGROK_AUTH_TOKEN" "$DDNS" "$CLOUDFLARED_CERT" "$CLOUDFLARED_CONFIG_LINUX_SSH" "$CLOUDFLARED_KEY_LINUX_SSH" "$CLOUDFLARED_NAME_LINUX_SSH" "$CLOUDFLARED_CONFIG_LINUX_VNC" "$CLOUDFLARED_KEY_LINUX_VNC" "$CLOUDFLARED_NAME_LINUX_VNC"
-    - name: ngrok is now listening to VNC connections on...
-      run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
     - name: Start SSH session
       uses: luchihoratiu/debug-via-ssh@main
       with:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-        SSH_PASS: ${{ secrets.VNC_PASSWORD }}
+        SSH_PASS: ${{ secrets.SSH_PASS }}
+    - name: ngrok is now listening to VNC connections on...
+      run: curl --silent http://127.0.0.1:4040/api/tunnels | jq '.tunnels[0].public_url'
